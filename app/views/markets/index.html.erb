@@ -1,0 +1,11 @@
+<h1> Markets </h1>
+
+<section class="all_markets">
+  <% @all_markets.each do |market| %>
+    <div class="im_<%= market.id %>">
+      <h3> <%= link_to market.name, market_path(market.id) %> </h3>
+      <p> City: <%= market.city %> </p>
+      <p> State: <%= market.state %> </p>
+    </div>
+  <% end %>
+</section>
