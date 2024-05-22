@@ -1,0 +1,12 @@
+class MarketsController < ApplicationController
+  def index
+    facade = MarketFacade.new
+    @all_markets = facade.get_all_markets
+  end
+
+  def show
+    market_id = params[:id]
+    facade = MarketFacade.new
+    @single_market = facade.get_single_market(market_id)
+  end
+end
