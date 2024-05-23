@@ -1,4 +1,15 @@
 <h1> <%= @single_market.name %> Show Page </h1>
 
-<p> <%= @single_market.city %> </p>
-<p> <%= @single_market.state %> </p>
+<section class="address">
+  <p> <%= @single_market.street %> </p>
+  <p> <%= @single_market.city %>, <%= @single_market.state %> <%= @single_market.zip %> </p>
+</section>
+
+<section class="all_vendors">
+  <h3> Vendors at Our Market </h3>
+  <ul>
+    <% @single_market_vendors.each do |vendor| %>
+      <li> <%= link_to vendor.name, vendor_path(vendor.id) %> </li>
+    <% end %>
+  </ul>  
+</section>
