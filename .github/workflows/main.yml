@@ -40,11 +40,11 @@ jobs:
           bundle install
 
       - name: Prepare Database
-        # env:
-          # PGHOST: localhost
-          # PGUSER: postgres
-          # PGPASSWORD: postgres
-          # RAILS_ENV: test
+        env:
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
+          RAILS_ENV: test
         run: |
           bundle exec rails db:prepare
 
