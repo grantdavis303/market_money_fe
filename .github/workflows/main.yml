@@ -8,21 +8,22 @@ jobs:
   main:
     runs-on: ubuntu-latest
 
-    # Setting up the PostgreSQL database w/ Health Check
+    # Setting up the PostgreSQL database
     services:
       postgres:
         image: postgres
         env:
-          PG_USER: postgres
-          PG_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         ports:
           - 5432:5432
+        # Healthcheck for PostgreSQL database
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
-    # Steps for GitHub Actions
+    # All the steps that GitHub Actions checks
     steps:
       - name: Checkout Repository 
-        uses: actions/checkout@main
+        uses: actions/checkout@v2
 
       - name: Install Ruby (.ruby_version)
         uses: ruby/setup-ruby@v1
@@ -31,8 +32,8 @@ jobs:
       
       - name: Install Dependencies
         run: |
-          gem install bundler
           sudo apt install -yqq libpq-dev
+          gem install bundler
 
       - name: Install Gems
         run: |
@@ -40,18 +41,18 @@ jobs:
 
       - name: Prepare Database
         env:
-          PG_HOST: localhost
-          PG_USER: postgres
-          PG_PASSWORD: postgres
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
           RAILS_ENV: test
         run: |
           bundle exec rails db:prepare
 
-      - name: Run RSpec Tests
+      - name: Run RSPEC Tests
         env:
-          PG_HOST: localhost
-          PG_USER: postgres
-          PG_PASSWORD: postgres
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
           RAILS_ENV: test
         run: |
           bundle exec rspec spec
